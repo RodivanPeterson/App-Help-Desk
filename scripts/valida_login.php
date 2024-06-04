@@ -3,28 +3,30 @@
     
     // Variável para autenticação
     $usuario_valido = false;
+    $usuario_id = null;
+    $perfil_id = null;
 
     // Usuários da aplicação
     $usuarios_app = array(
-        array('email' => 'adm@teste.com.br', 'senha' => '123456'),
-        array('email' => 'user@teste.com.br', 'senha' => 'abcd'),
+        array('id' => 1, 'email' => 'adm@teste.com.br', 'senha' => '1234', 'perfil_id' => 1),
+        array('id' => 2, 'email' => 'user@teste.com.br', 'senha' => '1234', 'perfil_id' => 1),
+        array('id' => 3, 'email' => 'jose@teste.com.br', 'senha' => '1234', 'perfil_id' => 2),
+        array('id' => 4, 'email' => 'maria@teste.com.br', 'senha' => '1234', 'perfil_id' => 2),
     );
 
     foreach($usuarios_app as $usuario) {
 
         if($_POST['email'] == $usuario['email'] && $_POST['senha'] == $usuario['senha']){
             $usuario_valido = true;
+            $usuario_id = $usuario['id'];            
+            $perfil_id = $usuario['perfil_id'];            
         }
-
-        echo "Usuário formulário: <br>";
-        print_r($usuario);
-        echo "<br><br>Usuário banco de dados: <br>";
-        print_r($_POST);
-        echo "<br><br><hr><br>";
     }
 
     if($usuario_valido){
         $_SESSION['autenticado'] = 'SIM';
+        $_SESSION['id'] = $usuario_id;
+        $_SESSION['perfil_id'] = $perfil_id;
         header('Location: ../screens/home.php');
         exit;
     } else {
