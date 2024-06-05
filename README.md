@@ -93,3 +93,7 @@ Todas as credenciais estão inseridas no projeto de maneira hardcoded, no iníci
 - Implementar novas funcionalidades como edição, definição de status e fechamento de chamados.
 - Implementar módulos interativos de conteúdos na página [`home.php`](./screens/home.php).
 - Repaginar o visual completo da aplicação.
+
+## Licença
+
+Este projeto é licenciado sob a [MIT License](./LICENSE).
