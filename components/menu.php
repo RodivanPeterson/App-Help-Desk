@@ -10,17 +10,17 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark menu-link">
   <a class="navbar-brand" href="<?php echo (basename($current_page) == 'index.php') ? '' : $menu_links['Home']; ?>">
     <div>
-      <img src="http://localhost/App-Help-Desk/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      <img src="<?php echo basename($current_page) == 'index.php' ? './images/logo.png' : '../images/logo.png' ?>" width="30" height="30" class="d-inline-block align-top" alt="">
       App Help Desk
     </div>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
+  
   <?php
     if(basename($current_page) != 'index.php'){
   ?>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto d-flex align-items-center">
 
@@ -42,11 +42,11 @@
             </button>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item icone_perfil">
           <div class="ml-3 mr-1" style="width: 2px; height: 30px; background: grey;">
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown icone_perfil">
           <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -56,6 +56,9 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: auto; width: auto;">
               <a class="dropdown-item" href="../scripts/logout.php">Sair</a>
           </div>
+        </li>
+        <li class="nav-item botao_logout">
+            <a class="nav-link" href="../scripts/logout.php">Sair</a>
         </li>
       </ul>
     </div>

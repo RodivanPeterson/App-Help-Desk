@@ -2,15 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>App Help Desk</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
-      .card-login {
-        width: 100%;
+      .alert, .card-login {
         margin: 15px auto 10px auto;
       }
+      @media (min-width: 576px) {
+        .alert, .card-login {
+          width: 100%;
+        }
+      }
+      @media (min-width: 992px) {
+        .alert, .card-login {
+          width: 350px;
+        }
+      }
+
     </style>
   </head>
 
@@ -46,10 +58,10 @@
             <div class="card-body">
               <form action="./scripts/valida_login.php" method="post">
                 <div class="form-group">
-                  <input name="email" type="email" class="form-control" placeholder="E-mail">
+                  <input name="email" type="email" class="form-control" placeholder="E-mail" required>
                 </div>
                 <div class="form-group">
-                  <input name="senha" type="password" class="form-control" placeholder="Senha">
+                  <input name="senha" type="password" class="form-control" placeholder="Senha" required>
                 </div>
 
                 <?php if(isset($_GET['login']) && $_GET['login'] == 'erro'){ ?>

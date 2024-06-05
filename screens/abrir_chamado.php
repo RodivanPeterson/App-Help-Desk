@@ -5,16 +5,18 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Help Desk</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style/estilo_menu.css">
 
     <style>
       .alert{
         position: absolute;
         z-index: 1;
-        top:5px;
         right: 5px;
+        margin-top: 5px;
       }
       .card-abrir-chamado {
         width: 100%;
@@ -28,9 +30,14 @@
     <?php if(isset($_GET['chamado']) && $_GET['chamado'] == 'sucesso'){ ?>
       <div id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
         <span>
-          <strong>Chamado aberto com sucesso!</strong><br>
+          <strong>
+            <span class="me-2 text-muted" style="font-size: 0.9em;">
+              #<?php echo $_SESSION['id_chamado']; ?>
+            </span><br>
+            <a href="./consultar_chamado.php">Chamado aberto com sucesso</a>
+          </strong><br>
           <span style="font-size: 0.85em;">
-            Em <?php echo date('m/d/Y'); ?> | <?php echo date('H:i:s'); ?>
+            Em <?php echo $_SESSION['data']; ?> | <?php echo $_SESSION['horario']; ?>
           </span> <br>
         </span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -55,28 +62,29 @@
                   <form method="post" action="../scripts/registra_chamado.php">
                     <div class="form-group">
                       <label>Título</label>
-                      <input type="text" class="form-control" name="titulo" placeholder="Título">
+                      <input type="text" class="form-control" name="titulo" placeholder="Título" required>
                     </div>
                     
                     <div class="form-group">
                       <label>Categoria</label>
-                      <select class="form-control" name="categoria">
+                      <select class="form-control" name="categoria" required>
+                        <option>Selecione a categoria</option>
                         <option>Criação Usuário</option>
                         <option>Impressora</option>
-                        <option>Hardware</option>
-                        <option>Software</option>
-                        <option>Rede</option>
+                        <option>Computador</option>
+                        <option>Periféficos</option>
+                        <option>Internet</option>
                       </select>
                     </div>
                     
                     <div class="form-group">
                       <label>Descrição</label>
-                      <textarea class="form-control" rows="3" name="descricao"></textarea>
+                      <textarea class="form-control" rows="3" name="descricao" required></textarea>
                     </div>
 
                     <div class="row mt-5">
                       <div class="col-6">
-                        <a class="btn btn-lg btn-warning btn-block" href="http://localhost/App-Help-Desk/screens/home.php">Voltar</a>
+                        <a class="btn btn-lg btn-warning btn-block" href="./home.php">Voltar</a>
                       </div>
 
                       <div class="col-6">
