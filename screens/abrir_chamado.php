@@ -1,6 +1,24 @@
 <?php
   require_once '../scripts/validador_acesso.php';
   require_once '../components/menu.php';
+
+  function recuperarIdChamadoAberto() {
+    $conexao = new PDO(
+      "mysql:host=localhost;dbname=app_help_desk",
+      "root",
+      ""
+    );
+
+    $query = "
+      SELECT id
+      FROM tb_chamados
+      ORDER BY data_criacao DESC LIMIT 1
+    ";
+
+    $stmt = $conexao->query($query);
+    
+    return $stmt->fetch()['id'];
+  }
 ?>
 <html>
   <head>
@@ -32,7 +50,7 @@
         <span>
           <strong>
             <span class="me-2 text-muted" style="font-size: 0.9em;">
-              #<?php echo $_SESSION['id_chamado']; ?>
+              #<?php echo recuperarIdChamadoAberto(); ?>
             </span><br>
             <a href="./consultar_chamado.php">Chamado aberto com sucesso</a>
           </strong><br>
