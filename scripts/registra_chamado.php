@@ -2,6 +2,7 @@
     session_start();
 
     $perfil_id = $_SESSION['perfil_id'];
+    $id = $_SESSION['id'];
 
     $titulo = $_POST['titulo'];
     $categoria = $_POST['categoria'];
@@ -33,7 +34,7 @@
     $stmt->bindValue(':titulo', $titulo);
     $stmt->bindValue(':categoria', $categoria);
     $stmt->bindValue(':descricao', $descricao);
-    $stmt->bindValue(':id_usuario', $perfil_id);
+    $stmt->bindValue(':id_usuario', $id);
     $stmt->execute();
 
     header('Location: ../screens/abrir_chamado.php?chamado=sucesso');

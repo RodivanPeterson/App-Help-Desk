@@ -2,26 +2,39 @@
   require_once '../scripts/validador_acesso.php';
   require_once '../components/menu.php';
 
-  $chamados = array();
-  $arquivo = fopen('../chamados/arquivo.hd','r');
+  $notAdm = $_SESSION['perfil_id'] == 2;
   
-  while(!feof($arquivo)){
-    $registro = fgets($arquivo);
-    $chamado = explode('#', $registro);
-    $notAdm = $_SESSION['perfil_id'] == 2;
+  $conexao = new PDO(
+    "mysql:host=localhost;dbname=app_help_desk",
+    "root",
+    ""
+  );
+  
+  if($notAdm) {
+    $query = "
+      SELECT *
+      FROM tb_chamados
+      WHERE id_usuario = :id
+      ORDER BY data_criacao DESC
+    ";
     
-    if($notAdm) {
-      if($_SESSION['id'] != $chamado[0]) {
-        continue;
-      }
-    }
-    if(count($chamado) < 3) {
-      continue;
-    }
-    $chamados[] = $chamado;
+    $stmt = $conexao->prepare($query);
+    $stmt->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->execute();
+  } else {
+    $query = "
+      SELECT *
+      FROM tb_chamados
+      ORDER BY data_criacao DESC
+    ";
+    
+    $stmt = $conexao->query($query);
   }
-
-  fclose($arquivo);
+  
+  $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  echo '<pre>';
+  print_r($chamados);
+  echo '</pre>';
 ?>
 <html>
   <head>
@@ -77,19 +90,22 @@
             <?php
               } else {
                 foreach($chamados as $chamado_dados){
+                  $date = new DateTime($chamado_dados['data_criacao']);
+                  $data = $date->format('d/m/Y');
+                  $hora = $date->format('H:i');
             ?>
 
               <div class="card mb-3 bg-light">
                 <div class="card-body">
                   <span class="dados-abertura-chamado">
-                    <?php echo $chamado_dados[5]; ?> <br>
-                    <?php echo $chamado_dados[6]; ?> <br>
-                    <span class="email"><?php echo $chamado_dados[4]; ?></span>
+                    <?= $hora; ?> <br>
+                    <?= $data; ?> <br>
+                    <!-- <span class="email"></span> -->
                   </span>
-                  <span class="h6 text-muted">#<?php echo $chamado_dados[7]; ?></span>
-                  <h2 class="h5 card-title"><?php echo $chamado_dados[1]; ?></h2>
-                  <h3 class="h6 card-subtitle mb-2 text-muted"><?php echo $chamado_dados[2]; ?></h3>
-                  <p class="card-text"><?php echo $chamado_dados[3]; ?></p>
+                  <span class="h6 text-muted">#<?= $chamado_dados['id'] ?></span>
+                  <h2 class="h5 card-title"><?= $chamado_dados['titulo'] ?></h2>
+                  <h3 class="h6 card-subtitle mb-2 text-muted"><?= $chamado_dados['categoria'] ?></h3>
+                  <p class="card-text"><?= $chamado_dados['descricao'] ?></p>
                 </div>
               </div>
 
