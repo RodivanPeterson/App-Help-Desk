@@ -7,35 +7,33 @@
     $usuario_perfil_id = null;
     $usuario_email = null;
 
-    // Usuários da aplicação
-    $usuarios_app = array(
-        array('id' => 1, 'email' => 'adm@teste.com.br', 'senha' => '1234', 'perfil_id' => 1),
-        array('id' => 2, 'email' => 'user@teste.com.br', 'senha' => '1234', 'perfil_id' => 2),
-        array('id' => 3, 'email' => 'jose@teste.com.br', 'senha' => '1234', 'perfil_id' => 2),
-        array('id' => 4, 'email' => 'maria@teste.com.br', 'senha' => '1234', 'perfil_id' => 2),
-        array('id' => 5, 'email' => 'anderson@teste.com.br', 'senha' => '1234', 'perfil_id' => 2),
+    $conexao = new PDO(
+        "mysql:host=localhost;dbname=app_help_desk",
+        "root",
+        ""
     );
+    $query = "
+        SELECT id, email, perfil_adm
+        FROM tb_usuarios
+        WHERE email = :email AND senha = :senha
+    ";
+    $stmt = $conexao->prepare($query);
+    $stmt->bindValue(":email", $_POST['email'], PDO::PARAM_STR);
+    $stmt->bindValue(":senha", $_POST['senha'], PDO::PARAM_STR);
+    $stmt->execute();
 
-    foreach($usuarios_app as $usuario) {
+    $dados_usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($_POST['email'] == $usuario['email'] && $_POST['senha'] == $usuario['senha']){
-            $usuario_valido = true;
-            $usuario_id = $usuario['id'];
-            $usuario_perfil_id = $usuario['perfil_id'];
-            $usuario_email = $usuario['email'];
-        }
-    }
-
-    if($usuario_valido){
-        $_SESSION['autenticado'] = 'SIM';
-        $_SESSION['id'] = $usuario_id;
-        $_SESSION['perfil_id'] = $usuario_perfil_id;
-        $_SESSION['email'] = $usuario_email;
-        header('Location: ../screens/home.php');
-        exit;
-    } else {
+    if(empty($dados_usuario)) {
         $_SESSION['autenticado'] = 'NÃO';
         header('Location: ../index.php?login=erro');
+        exit;
+    } else {
+        $_SESSION['autenticado'] = 'SIM';
+        $_SESSION['id'] = $dados_usuario['id'];
+        $_SESSION['email'] = $dados_usuario['email'];
+        $_SESSION['perfil_id'] = $dados_usuario['perfil_adm'];
+        header('Location: ../screens/home.php');
         exit;
     }
 ?>
