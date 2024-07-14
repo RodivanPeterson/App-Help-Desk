@@ -32,9 +32,6 @@
   }
   
   $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  echo '<pre>';
-  print_r($chamados);
-  echo '</pre>';
 ?>
 <html>
   <head>
