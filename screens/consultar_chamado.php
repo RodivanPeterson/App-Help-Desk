@@ -1,48 +1,52 @@
 <?php
-  require_once '../scripts/validador_acesso.php';
+  require_once '../app/validador_acesso.php';
   require_once '../components/menu.php';
 
-  $notAdm = $_SESSION['perfil_id'] == 2;
+  $acao = 'recuperar';
+
+  require_once '../app/chamadoController.php'
+
+  // $notAdm = $_SESSION['perfil_id'] == 2;
   
-  $conexao = new PDO(
-    "mysql:host=localhost;dbname=app_help_desk",
-    "root",
-    ""
-  );
+  // $conexao = new PDO(
+  //   "mysql:host=localhost;dbname=app_help_desk",
+  //   "root",
+  //   ""
+  // );
   
-  if($notAdm) {
-    $query = "
-      SELECT 
-        ch.id, ch.titulo, ch.categoria, ch.descricao, ch.data_criacao, user.email
-      FROM
-        tb_chamados AS ch
-      LEFT JOIN
-        tb_usuarios AS user ON (ch.id_usuario = user.id)
-      WHERE
-        id_usuario = :id
-      ORDER BY 
-        data_criacao DESC
-    ";
+  // if($notAdm) {
+  //   $query = "
+  //     SELECT 
+  //       ch.id, ch.titulo, ch.categoria, ch.descricao, ch.data_criacao, user.email
+  //     FROM
+  //       tb_chamados AS ch
+  //     LEFT JOIN
+  //       tb_usuarios AS user ON (ch.id_usuario = user.id)
+  //     WHERE
+  //       id_usuario = :id
+  //     ORDER BY 
+  //       data_criacao DESC
+  //   ";
     
-    $stmt = $conexao->prepare($query);
-    $stmt->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
-    $stmt->execute();
-  } else {
-    $query = "
-      SELECT 
-        ch.id, ch.titulo, ch.categoria, ch.descricao, ch.data_criacao, user.email
-      FROM
-        tb_chamados AS ch
-      LEFT JOIN
-        tb_usuarios AS user ON (ch.id_usuario = user.id)
-      ORDER BY 
-        data_criacao DESC
-    ";
+  //   $stmt = $conexao->prepare($query);
+  //   $stmt->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
+  //   $stmt->execute();
+  // } else {
+  //   $query = "
+  //     SELECT 
+  //       ch.id, ch.titulo, ch.categoria, ch.descricao, ch.data_criacao, user.email
+  //     FROM
+  //       tb_chamados AS ch
+  //     LEFT JOIN
+  //       tb_usuarios AS user ON (ch.id_usuario = user.id)
+  //     ORDER BY 
+  //       data_criacao DESC
+  //   ";
     
-    $stmt = $conexao->query($query);
-  }
+  //   $stmt = $conexao->query($query);
+  // }
   
-  $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  // $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <html>
   <head>

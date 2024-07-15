@@ -1,5 +1,5 @@
 <?php
-  require_once '../scripts/validador_acesso.php';
+  require_once '../app/validador_acesso.php';
   require_once '../components/menu.php';
 ?>
 <html>

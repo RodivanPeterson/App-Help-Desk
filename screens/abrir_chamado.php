@@ -1,5 +1,5 @@
 <?php
-  require_once '../scripts/validador_acesso.php';
+  require_once '../app/validador_acesso.php';
   require_once '../components/menu.php';
 
   function recuperarIdChamadoAberto() {
@@ -77,7 +77,7 @@
               <div class="row">
                 <div class="col">
                   
-                  <form method="post" action="../scripts/registra_chamado.php">
+                  <form method="post" action="../app/chamadoController.php?acao=inserir">
                     <div class="form-group">
                       <label>Título</label>
                       <input type="text" class="form-control" name="titulo" placeholder="Título" required>
