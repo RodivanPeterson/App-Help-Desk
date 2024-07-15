@@ -108,7 +108,7 @@
                   <span class="dados-abertura-chamado">
                     <?= $hora; ?> <br>
                     <?= $data; ?> <br>
-                    <!-- <span class="email"></span> -->
+                    <span class="email"><?= $chamado_dados['email'] ?></span>
                   </span>
                   <span class="h6 text-muted">#<?= $chamado_dados['id'] ?></span>
                   <h2 class="h5 card-title"><?= $chamado_dados['titulo'] ?></h2>
