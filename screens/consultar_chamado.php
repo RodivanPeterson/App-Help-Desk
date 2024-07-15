@@ -12,10 +12,16 @@
   
   if($notAdm) {
     $query = "
-      SELECT *
-      FROM tb_chamados
-      WHERE id_usuario = :id
-      ORDER BY data_criacao DESC
+      SELECT 
+        ch.id, ch.titulo, ch.categoria, ch.descricao, ch.data_criacao, user.email
+      FROM
+        tb_chamados AS ch
+      LEFT JOIN
+        tb_usuarios AS user ON (ch.id_usuario = user.id)
+      WHERE
+        id_usuario = :id
+      ORDER BY 
+        data_criacao DESC
     ";
     
     $stmt = $conexao->prepare($query);
@@ -23,9 +29,14 @@
     $stmt->execute();
   } else {
     $query = "
-      SELECT *
-      FROM tb_chamados
-      ORDER BY data_criacao DESC
+      SELECT 
+        ch.id, ch.titulo, ch.categoria, ch.descricao, ch.data_criacao, user.email
+      FROM
+        tb_chamados AS ch
+      LEFT JOIN
+        tb_usuarios AS user ON (ch.id_usuario = user.id)
+      ORDER BY 
+        data_criacao DESC
     ";
     
     $stmt = $conexao->query($query);
