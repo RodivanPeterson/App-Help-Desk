@@ -54,11 +54,11 @@
               </svg>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: auto; width: auto;">
-              <a class="dropdown-item" href="../app/logout.php">Sair</a>
+              <a class="dropdown-item" href="../app/autenticacaoController.php?acao=logout">Sair</a>
           </div>
         </li>
         <li class="nav-item botao_logout">
-            <a class="nav-link" href="../app/logout.php">Sair</a>
+            <a class="nav-link" href="../app/autenticacaoController.php?acao=logout">Sair</a>
         </li>
       </ul>
     </div>

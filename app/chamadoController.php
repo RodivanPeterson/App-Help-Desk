@@ -27,7 +27,7 @@
         $chamadoService->inserir();
 
         header('Location: ../screens/abrir_chamado.php?chamado=sucesso');
-        die();
+        exit();
     } else if ( $acao == 'recuperar' ) {
         $chamado = new Chamado();
         $conexao = new Conexao();

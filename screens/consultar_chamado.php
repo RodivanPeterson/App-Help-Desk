@@ -1,5 +1,5 @@
 <?php
-  require_once '../app/validador_acesso.php';
+  require_once '../app/autenticacaoController.php';
   require_once '../components/menu.php';
 
   $acao = 'recuperar';
